@@ -4,7 +4,6 @@ import BookmarkList from "./components/BookmarkList.vue"
 
 <template>
   <header>
-    
   </header>
 
   <main>

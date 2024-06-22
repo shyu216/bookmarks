@@ -29,7 +29,7 @@ export default {
         }
     },
     mounted() {
-        fetch('public/bookmark.json', {
+        fetch('bookmark.json', {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             },
