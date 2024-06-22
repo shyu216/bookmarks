@@ -31,6 +31,10 @@ export default {
 </script>
 
 <style scoped>
+h3 {
+  font-weight: bold;
+}
+
 .badge {
     display: inline-flex;
     align-items: center;
@@ -48,7 +52,6 @@ export default {
 }
 
 .item { 
-    width: 100%;
     transition: width 0.3s ease; /* 可选：平滑过渡效果 */
     /* 其他样式 */
     border-radius: 10px;
@@ -62,6 +65,7 @@ export default {
 
 .icon {
     width: 40px;
+    min-width: 40px;
     /* Adjusted size */
     height: auto;
     /* Maintain aspect ratio */
