@@ -12,6 +12,7 @@ to do:
 2. get add_date
 3. append to bookmark list and return
 """
+from urllib.parse import urlparse
 def parse_firefox_bookmark(bookmark_path):
     bookmark = []
     with open(bookmark_path, 'r') as f:
@@ -20,12 +21,17 @@ def parse_firefox_bookmark(bookmark_path):
             line = line.strip()
             if line.startswith('<DT><A HREF='):
                 href = line.split('HREF="')[1].split('" ADD_DATE=')[0]
-                if '?' in href:
-                    href = href.split('?')[0]
+                # if '?' in href:
+                #     href = href.split('?')[0]
+                parsed_url = urlparse(href)
+                href = parsed_url.scheme + '://' + parsed_url.netloc
                 add_date = line.split('ADD_DATE="')[1].split('"')[0]
+                title_start = line.find('>') + 1
+                title_end = line.find('</A>')
+                title = line[title_start:title_end]
                 # 检查href是否已经存在于书签列表中
                 if not any(b['href'] == href for b in bookmark):
-                    bookmark.append({'href': href, 'add_date': add_date})
+                    bookmark.append({'href': href, 'add_date': add_date, 'title': title})
     return bookmark
 
 
@@ -41,13 +47,25 @@ example:
 https://students.unimelb.edu.au/new-students/new-student-checklist
 
 use beautifulsoup to get the title/description/keywords/icon of the bookmark
+
+note: set the encoding to utf-8 to avoid messy code
 """
+import re
+def clean_text(text):
+    if not text: return ''
+    # 替换换行符和制表符
+    text = text.replace('\n', ' ').replace('\t', ' ')
+    # 使用正则表达式替换多个连续空格为一个空格
+    text = re.sub(' +', ' ', text)
+    return text.strip()
+
 import requests
 from requests.exceptions import Timeout
 import bs4
-def request_info(url):
+def request_info(url, timeout=10):
     try:
-        r = requests.get(url, timeout=10)
+        r = requests.get(url, timeout=timeout)
+        r.encoding = 'utf-8' 
         soup = bs4.BeautifulSoup(r.text, 'html.parser')
         title = soup.title.string
         description = soup.find('meta', attrs={'name': 'description'})
@@ -59,8 +77,8 @@ def request_info(url):
         icon = soup.find('link', attrs={'rel': 'icon'})
         if icon:
             icon = icon['href']
-            icon = get_full_icon_url(info['href'], icon)
-        return {'title': title, 'description': description, 'keywords': keywords, 'icon': icon}
+            icon = get_full_icon_url(url, icon)
+        return {'title': clean_text(title), 'description': clean_text(description), 'keywords': clean_text(keywords), 'icon': icon}
     except Timeout:
         print("Request timed out")
         return None
@@ -69,27 +87,33 @@ def request_info(url):
         return None
     
 
-
 import json
+import os
 from tqdm import tqdm
+import threading
+from concurrent.futures import ThreadPoolExecutor
+lock = threading.Lock()  # 创建一个锁对象
+
+def process_bookmark(b):
+    global full_info
+    if not any(info['href'] == b['href'] for info in full_info):
+        info = request_info(b['href'])
+        print(info)
+        if info:
+            with lock:  # 使用锁来同步写入文件的操作
+                if not any(info['href'] == b['href'] for info in full_info):  # 再次检查以避免重复添加
+                    full_info.append({'href': b['href'], 'add_date': b['add_date'], 'title': info['title'], 'description': info['description'], 'keywords': info['keywords'], 'icon': info['icon']})
+                    tqdm.write(f"Processed bookmark: {b['href']}")  # 打印处理的书签信息
+                    with open('bookmark.json', 'w', encoding='utf-8') as f:
+                        json.dump(full_info, f, indent=4, ensure_ascii=False)
+
 if __name__ == '__main__':
     bookmark_path = os.path.expanduser('./bookmarks.html')
     bookmark = parse_firefox_bookmark(bookmark_path)
-
-    bookmark = bookmark[670:]
-
     full_info = []
     if os.path.exists('bookmark.json'):
-        with open('bookmark.json', 'r') as f:
+        with open('bookmark.json', 'r', encoding='utf-8') as f:
             full_info = json.load(f)
 
-    for b in tqdm(bookmark, desc="Processing bookmarks"):
-        if not any(info['href'] == b['href'] for info in full_info):
-            info = request_info(b['href'])
-            if info:
-                full_info.append({'href': b['href'], 'add_date': b['add_date'], 'title': info['title'], 'description': info['description'], 'keywords': info['keywords'], 'icon': info['icon']})
-
-                tqdm.write(f"Processed bookmark: {b['href']}")  # 打印处理的书签信息
-
-                with open('bookmark.json', 'w') as f:
-                    json.dump(full_info, f, indent=4)
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        list(tqdm(executor.map(process_bookmark, bookmark), total=len(bookmark), desc="Processing bookmarks"))

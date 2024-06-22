@@ -44,14 +44,14 @@ if __name__ == '__main__':
         if len(positive_scores_indices) == 0:
             full_info[i]['tags'] = []
         else:
-            # 从大于0的分数中选择前5个
-            top5_indices = tfidf_scores[positive_scores_indices].argsort()[-5:][::-1]
-            top5_indices = positive_scores_indices[top5_indices]
-            print(f"Top 5 tags for website {i}:")
-            print ([(feature_names[j], tfidf_scores[j]) for j in top5_indices])
-            full_info[i]['tags'] = [feature_names[j] for j in top5_indices]
+            # 从大于0的分数中选择前10个
+            top10_indices = tfidf_scores[positive_scores_indices].argsort()[-10:][::-1]
+            top10_indices = positive_scores_indices[top10_indices]
+            print(f"Top 10 tags for website {i}:")
+            print ([(feature_names[j], tfidf_scores[j]) for j in top10_indices])
+            full_info[i]['tags'] = [feature_names[j] for j in top10_indices]
 
-            for j in top5_indices:
+            for j in top10_indices:
                 if feature_names[j] in tags:
                     tags[feature_names[j]] += 1
                 else:
