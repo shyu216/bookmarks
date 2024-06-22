@@ -7,6 +7,13 @@ import jieba
 import matplotlib.pyplot as plt
 import numpy as np
 
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+stop_words = set(stopwords.words('chinese'))
+stop_words_eng = set(stopwords.words('english'))
+
+
 if __name__ == '__main__':
     content = []
     with open('bookmark.json', 'r') as f:
@@ -25,6 +32,7 @@ if __name__ == '__main__':
     def tokenize(text):
         words = jieba.lcut(text)
         words = [word for word in words if word.isalpha() and len(word) > 1]
+        words = [word for word in words if word not in stop_words and word not in stop_words_eng]
         return words
 
     # 创建TfidfVectorizer实例

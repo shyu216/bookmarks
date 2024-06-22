@@ -1,7 +1,7 @@
 <template>
 
     <div class="item">
-        <div class="row">
+        <div class="title">
             <img :src="bookmark.icon" alt="icon" class="icon" />
             <div class="content">
                 <h3>{{ bookmark.title }}</h3>
@@ -9,9 +9,9 @@
             </div>
         </div>
         <div class="row">
-            <p class="add-date">Added on: {{ new Date(parseInt(bookmark.add_date) * 1000).toLocaleDateString() }}
+            <p>Added on: {{ new Date(parseInt(bookmark.add_date) * 1000).toLocaleDateString() }}
             </p>
-            <a :href="bookmark.href" target="_blank" class="badge link-badge">
+            <a :href="bookmark.href" target="_blank" class="badge link">
                 <font-awesome-icon :icon="['fas', 'link']" />
                 Visit Link
             </a>
@@ -40,9 +40,10 @@ h3 {
     align-items: center;
     padding: 3px 8px;
     border-radius: 8px;
+    color: #17672c;
 }
 
-.link-badge svg {
+.link svg {
     margin-right: 5px;
     transition: transform 0.3s ease;
 }
@@ -55,26 +56,33 @@ h3 {
     transition: width 0.3s ease; /* 可选：平滑过渡效果 */
     /* 其他样式 */
     border-radius: 10px;
-    background-color: #004d40;
+    background-color: #4DB330;
     /* Deep green */
     padding: 10px;
     margin: 10px 0;
     display: flex;
     flex-direction: column;
+    font-size: 20px;
 }
 
 .icon {
-    width: 40px;
-    min-width: 40px;
+    width: 60px;
+    min-width: 60px;
     /* Adjusted size */
     height: auto;
     /* Maintain aspect ratio */
+}
+
+.title {
+    display: flex;
+    align-items: center;
 }
 
 .row {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    justify-content: space-between;
     /* Add some space between rows */
 }
 
@@ -83,15 +91,18 @@ h3 {
     /* Space between icon and text */
 }
 
-.add-date {
-    width: 200px;
-    /* Fixed width for date */
-    margin-right: auto;
-    /* Pushes the link to the right */
+.content p{
+    font-size: 16px;
+    margin-top: 0; /* 移除p的上边距 */
+}
+
+.content h3 {
+  margin-bottom: 0; /* 移除h3的下边距 */
 }
 
 .tags {
     display: none;
+    justify-content: flex-start;
 }
 .item:hover .tags {
     display: flex;
@@ -104,7 +115,7 @@ h3 {
     /* Adjusted tag spacing */
     margin-bottom: 5px;
     /* Space between tag rows */
-    background-color: #2b60c2;
+    background-color: #FFA21F;
     padding: 3px 8px;
     border-radius: 8px;
 }

@@ -34,10 +34,12 @@ export default {
     padding: 10px 20px; /* 调整内边距以适应字体大小 */
     height: auto; /* 自动调整高度以适应内容 */
     border-radius: 8px;
+    border-color: #4DB330;
+    color: #17672c;
 }
 
 .search-icon {
-    color: #ffffff;
+    color: #17672c;
     font-size: 32px;
     margin-right: 20px;
 }

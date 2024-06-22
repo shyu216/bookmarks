@@ -1,11 +1,10 @@
 <template>
     <div class="list">
-
         <search-input @update:query="searchQuery = $event" class="search" />
-        <transition-group name="fade" tag="ul" v-if="filteredBookmarks.length" class="scrollable">
-            <bookmark-list-item v-for="(bookmark, index) in filteredBookmarks" :key="bookmark.href" :bookmark="bookmark"
-                :style="{ 'animation-delay': index * 0.2 + 's' }" />
-        </transition-group>
+        <div v-if="filteredBookmarks.length" class="scrollable">
+            <bookmark-list-item v-for="(bookmark, index) in filteredBookmarks" :key="bookmark.href"
+                :bookmark="bookmark" />
+        </div>
     </div>
 </template>
 
@@ -49,56 +48,16 @@ export default {
 <style>
 .scrollable {
     max-height: 800px;
-    /* 或者根据需要设置的高度 */
     overflow-y: auto;
     overflow-x: hidden;
+    border-radius: 8px;
 }
 
 .search {
     padding-bottom: 10px;
 }
 
-
 .list {
-    width: 40%;
-    /* 设置宽度为页面宽度的40% */
-}
-
-@media (max-width: 768px) {
-
-    /* 假设在屏幕宽度小于768px时调整为全宽 */
-    .list {
-        width: 100%;
-        /* 在小屏幕上宽度调整为100% */
-    }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.fade-enter,
-.fade-leave-to
-
-/* .fade-leave-active in <2.1.8 */
-    {
-    opacity: 0;
-}
-
-.bookmark-list-item {
-    animation: fadeIn 0.5s ease forwards;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    max-width: 40%;
 }
 </style>
