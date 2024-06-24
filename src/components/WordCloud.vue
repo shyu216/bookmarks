@@ -1,6 +1,6 @@
 <template>
     <div class="wordcloud">
-        <svg width="1000" height="1000"></svg>
+        <svg width="600" height="600"></svg>
     </div>
 </template>
 
@@ -27,6 +27,11 @@ export default {
             .catch(error => console.error('Error loading bookmarks:', error));
     },
     methods: {
+        updateQuery(searchQuery) {
+            // 使用事件总线传递搜索查询
+            this.$store.commit('updateSearchQuery', searchQuery);
+            console.log('Committing query:', searchQuery);
+        },
         generateWordCloud() {
             const tagCounts = this.tags.reduce((acc, tag) => {
                 acc[tag] = (acc[tag] || 0) + 1;
@@ -35,14 +40,15 @@ export default {
 
             const wordCloudData = Object.keys(tagCounts).map(key => ({
                 text: key,
-                size: tagCounts[key] * 10 // 调整大小因子以适应你的需求
+                size: Math.max(Math.log(tagCounts[key]) * 20, 10) // 使用对数调整大小，并确保最小值为10
             }));
 
             const layout = cloud()
-                .size([1000, 1000])
+                .size([600, 600])
                 .words(wordCloudData)
-                .padding(5)
-                .rotate(() => ~~(Math.random() * 2) * 90)
+                .padding(1)
+                // .rotate(() => ~~(Math.random() * 2) * 90)
+                .rotate(() => Math.random() * 80 - 40)
                 .font("Impact")
                 .fontSize(d => d.size)
                 .on("end", this.drawWordCloud);
@@ -62,10 +68,14 @@ export default {
                 .enter().append("text")
                 .style("font-size", d => d.size + "px")
                 .style("font-family", "Impact")
-                .style("fill", (d, i) => color(i)) // 使用颜色集
+                .style("fill", (d, i) => color(i))
                 .attr("text-anchor", "middle")
-                .attr("transform", d => `translate(${d.x},${d.y})rotate(${d.rotate})`)
-                .text(d => d.text);
+                .text(d => d.text)
+                .on("click", d => this.updateQuery(d.target.innerHTML)) // 添加点击事件监听器
+                .style("cursor", "pointer") // 将鼠标光标改为指针形状，以提高用户体验
+                .transition() // 应用动画
+                .duration(3000) // 动画持续时间，单位为毫秒
+                .attr("transform", d => `translate(${d.x},${d.y}) rotate(${d.rotate})`); // 确保单词的位置和旋转也被应用
         }
     }
 }
@@ -73,8 +83,8 @@ export default {
 
 <style>
 .wordcloud {
-    text-align: center;
-    max-width: 50%;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
