@@ -3,11 +3,17 @@
         <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
         <input type="text" v-model="searchQuery" placeholder="Search bookmarks..." @input="updateQuery"
             class="search-input" />
+        <tutorial-card />
     </div>
 </template>
 
 <script>
+import TutorialCard from './TutorialCard.vue';
+
 export default {
+    components: {
+        TutorialCard
+    },
     data() {
         return {
             searchQuery: ''
@@ -38,6 +44,7 @@ export default {
     align-items: center;
     justify-content: right;
     border-radius: 8px;
+    gap: 10px;
 }
 
 .search-input {
@@ -57,6 +64,11 @@ export default {
 .search-icon {
     color: #17672c;
     font-size: 24px;
-    margin-right: 10px;
+}
+
+@media (max-width: 1080px) {
+    .search-container {
+        justify-content: center;
+    }
 }
 </style>

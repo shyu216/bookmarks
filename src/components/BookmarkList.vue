@@ -78,6 +78,6 @@ export default {
 
 .list-container {
     max-width: 500px;
-    width: 500px;
+    width: 100%;
 }
 </style>

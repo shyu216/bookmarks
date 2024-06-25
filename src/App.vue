@@ -18,7 +18,9 @@ import WordCloud from "./components/WordCloud.vue"
   justify-content: center;
   align-items: center;
   height: 100vh;
-  gap: 10vh;
+  width: 100vw;
+  gap: 10vw;
+  overflow: hidden;
 }
 
 .divider {
@@ -31,12 +33,12 @@ import WordCloud from "./components/WordCloud.vue"
 @media (max-width: 1080px) {
   .container {
     flex-direction: column;
+    width: 100%;
+    gap: 0vh;
   }
 
   .divider {
-    height: 5px; /* 调整为适合水平分割线的高度 */
-    width: 100%; /* 撑满容器宽度 */
-    background-color: rgba(23, 103, 44, 0.5); /* 保持之前的颜色和透明度设置 */
+    display: none;
   }
 }
 </style>

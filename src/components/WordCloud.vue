@@ -86,5 +86,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 600px;
+    height: 600px;
 }
 </style>
