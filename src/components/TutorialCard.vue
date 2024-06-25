@@ -19,7 +19,7 @@
 export default {
     data() {
         return {
-            isCardVisible: false,
+            isCardVisible: true,
         };
     },
     methods: {
