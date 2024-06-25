@@ -3,9 +3,10 @@
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Preparation
+This part lacks of testing, please try your best to debug and fit your case by yourself.
 
 1. Export your bookmark from browser as html and put in the 'bookmark_helper' folder.
-2. Run the firefox.py follows by tfidf.py.
+2. Run the firefox.py following by tfidf.py.
 3. Move bookmark.json to 'public' folder.
 
 ## Recommended IDE Setup
