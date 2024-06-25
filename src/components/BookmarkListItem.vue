@@ -17,7 +17,7 @@
             </a>
         </container>
         <container class="tags">
-            <span v-for="tag in bookmark.tags" :key="tag" class="badge tag">
+            <span v-for="tag in bookmark.tags" :key="tag" class="badge tag" @click="updateQuery(tag)">
                 {{ tag }}
             </span>
         </container>
@@ -26,7 +26,14 @@
 
 <script>
 export default {
-    props: ['bookmark', 'show']
+    props: ['bookmark', 'show'],
+    methods: {
+        updateQuery(searchQuery) {
+            // 使用事件总线传递搜索查询
+            this.$store.commit('updateSearchQuery', searchQuery);
+            console.log('Committing query:', searchQuery);
+        }
+    }
 }
 </script>
 
@@ -34,7 +41,7 @@ export default {
 .list-item {
     transition: height 0.3s ease;
     border-radius: 8px;
-    background-color: #4DB330;
+    background-color: rgba(240, 240, 240, 0.5);
     padding: 10px;
     margin: 10px 0;
     display: flex;
@@ -49,7 +56,7 @@ export default {
 }
 
 .title {
-    display: flex;  
+    display: flex;
     align-items: center;
     justify-content: left;
 }

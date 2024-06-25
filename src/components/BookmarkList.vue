@@ -66,6 +66,7 @@ export default {
 <style>
 .scrollable {
     max-height: 600px;
+    height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
     border-radius: 8px;
@@ -77,5 +78,6 @@ export default {
 
 .list-container {
     max-width: 500px;
+    width: 500px;
 }
 </style>

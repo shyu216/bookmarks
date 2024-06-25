@@ -36,7 +36,7 @@ export default {
 .search-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: right;
     border-radius: 8px;
 }
 
