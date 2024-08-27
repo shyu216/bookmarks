@@ -1,13 +1,13 @@
-# a bookmark
-
-This template should help get you started developing with Vue 3 in Vite.
+Use this project to build a bookmark page from your browser's bookmark export file. The page was built with Vue.js.
 
 ## Preparation
 This part lacks of testing, please try your best to debug and fit your case by yourself.
 
-1. Export your bookmark from browser as html and put in the 'bookmark_helper' folder.
-2. Run the firefox.py following by tfidf.py.
-3. Move bookmark.json to 'public' folder.
+1. Go to 'bookmark_helper' folder.
+2. Export your bookmark from browser as html and put it here.
+3. Install the required packages by running `pip install -r requirements.txt`.
+4. Run the firefox.py following by tfidf.py.
+5. Move bookmark.json to 'public' folder.
 
 ## Recommended IDE Setup
 

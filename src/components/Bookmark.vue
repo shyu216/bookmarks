@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import BookmarkListItem from './BookmarkListItem.vue';
+import BookmarkListItem from './BookmarkItem.vue';
 import SearchInput from './SearchInput.vue'; // 导入SearchInput组件
 
 import { mapState } from 'vuex';
@@ -61,23 +61,3 @@ export default {
     }
 }
 </script>
-
-
-<style>
-.scrollable {
-    max-height: 600px;
-    height: 600px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 8px;
-}
-
-.search {
-    padding-bottom: 10px;
-}
-
-.list-container {
-    max-width: 500px;
-    width: 100%;
-}
-</style>

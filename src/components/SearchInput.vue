@@ -1,19 +1,15 @@
 <template>
-    <div class="search-container">
-        <font-awesome-icon :icon="['fas', 'search']" class="search-icon" />
-        <input type="text" v-model="searchQuery" placeholder="Search bookmarks..." @input="updateQuery"
-            class="search-input" />
-        <tutorial-card />
-    </div>
+    <v-row>
+        <v-col cols="12" sm="6">
+            <v-text-field v-model="searchQuery" prepend-inner-icon="$vuetify" label="Search bookmarks..."
+                @input="updateQuery" variant="outlined" clearable>
+            </v-text-field>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
-import TutorialCard from './TutorialCard.vue';
-
 export default {
-    components: {
-        TutorialCard
-    },
     data() {
         return {
             searchQuery: ''
@@ -37,38 +33,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-.search-container {
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    border-radius: 8px;
-    gap: 10px;
-}
-
-.search-input {
-    transition: all 0.3s ease;
-    /* 平滑过渡效果 */
-    font-size: 18px;
-    /* 设置字体大小 */
-    padding: 10px;
-    /* 调整内边距以适应字体大小 */
-    height: auto;
-    /* 自动调整高度以适应内容 */
-    border-radius: 8px;
-    border-color: #4DB330;
-    color: #17672c;
-}
-
-.search-icon {
-    color: #17672c;
-    font-size: 24px;
-}
-
-@media (max-width: 1080px) {
-    .search-container {
-        justify-content: center;
-    }
-}
-</style>

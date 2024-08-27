@@ -1,7 +1,7 @@
 <template>
-    <div class="wordcloud">
-        <svg width="600" height="600"></svg>
-    </div>
+  <v-responsive :aspect-ratio="1">
+    <svg width="600" height="600"></svg>
+  </v-responsive>
 </template>
 
 
@@ -80,13 +80,3 @@ export default {
     }
 }
 </script>
-
-<style>
-.wordcloud {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
-    height: 600px;
-}
-</style>
