@@ -9,7 +9,6 @@
         label="Keyword"
         hide-details="auto"
         @input="updateQuery"
-        clearable
       >
       </v-text-field>
     </v-col>

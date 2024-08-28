@@ -1,17 +1,23 @@
 <template>
-  <v-row class="my-2 mx-4">
-    <template v-for="(bookmark, index) in bookmarks">
-      <v-col
-        :key="bookmark.href"
-        v-if="shouldShowBookmark(bookmark)"
-        cols="6"
-        md="4"
-        lg="3"
-      >
-        <BookmarkItem :bookmark="bookmark" />
-      </v-col>
-    </template>
-  </v-row>
+  <v-lazy
+    :min-height="200"
+    :options="{ threshold: 0.5 }"
+    transition="fade-transition"
+  >
+    <v-row class="my-2 mx-4">
+      <template v-for="(bookmark, index) in bookmarks">
+        <v-col
+          :key="bookmark.href"
+          v-if="shouldShowBookmark(bookmark)"
+          cols="6"
+          md="4"
+          lg="3"
+        >
+          <BookmarkItem :bookmark="bookmark" />
+        </v-col>
+      </template>
+    </v-row>
+  </v-lazy>
 </template>
 
 <script>
@@ -42,7 +48,7 @@ export default {
     },
   },
   mounted() {
-    fetch("./bookmark.json", {
+    fetch("./sites.json", {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
@@ -62,10 +68,10 @@ export default {
       // 使用 includes 方法检查书签的标题中是否包含关键词
       return (
         bookmark.title.toLowerCase().includes(this.keyword.toLowerCase()) ||
-        bookmark.tags.some((tag) =>
+        bookmark.tags?.some((tag) =>
           tag.toLowerCase().includes(this.keyword.toLowerCase())
         ) ||
-        bookmark.description.toLowerCase().includes(this.keyword.toLowerCase())
+        bookmark.description?.toLowerCase().includes(this.keyword.toLowerCase())
       );
     },
   },

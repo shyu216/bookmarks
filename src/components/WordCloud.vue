@@ -1,5 +1,5 @@
 <template>
-    <svg id="bookmark-svg" width="600" height="800"></svg>
+  <svg id="bookmark-svg" width="600" height="800"></svg>
 </template>
 
 <script>
@@ -13,12 +13,10 @@ export default {
     };
   },
   mounted() {
-    fetch("./bookmark.json")
+    fetch("./tags.json")
       .then((response) => response.json())
       .then((data) => {
-        data.forEach((bookmark) => {
-          this.tags.push(...bookmark.tags);
-        });
+        this.tags = data;
         this.generateWordCloud();
       })
       .catch((error) => console.error("Error loading bookmarks:", error));
@@ -35,10 +33,10 @@ export default {
         return acc;
       }, {});
 
-      const wordCloudData = Object.keys(tagCounts).map((key) => ({
-        text: key,
-        count: tagCounts[key],
-        size: Math.max(Math.log(tagCounts[key]) * 20, 10), // 使用对数调整大小，并确保最小值为10
+      const wordCloudData = this.tags.map((key) => ({
+        text: key[0],
+        count: key[1],
+        size: Math.max(Math.log(key[1]) * 20, 10), // 使用对数调整大小，并确保最小值为10
       }));
 
       const svg = d3.select("#bookmark-svg");

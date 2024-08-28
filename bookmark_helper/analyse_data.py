@@ -16,17 +16,10 @@ stop_words_eng = set(stopwords.words('english'))
 
 if __name__ == '__main__':
     content = []
-    with open('bookmark.json', 'r') as f:
+    with open('sites.json', 'r', encoding='utf-8') as f:
         full_info = json.load(f)
         for info in full_info:
-            c = ''
-            if info['title']:
-                c += info['title'] + ' '
-            if info['description']:
-                c += info['description'] + ' '
-            if info['keywords']:
-                c += info['keywords'] + ' '
-            content.append(c)
+            content.append(info['raw_text'])
 
     # 定义分词函数
     def tokenize(text):
@@ -66,9 +59,15 @@ if __name__ == '__main__':
                     tags[feature_names[j]] = 1
 
     sorted_tags = sorted(tags.items(), key=lambda x: x[1], reverse=True)
-    plt.figure(figsize=(10, 10))
+    plt.figure()
     plt.barh([tag[0] for tag in sorted_tags[-100:]], [tag[1] for tag in sorted_tags[-100:]])
     plt.show()
 
-    with open('bookmark.json', 'w') as f:
+    with open("tags.json", "w", encoding="utf-8") as f:
+        json.dump(sorted_tags, f, ensure_ascii=False, indent=4)
+
+    with open('sites.json', 'w', encoding='utf-8') as f:
+        # 删除raw_text字段
+        for info in full_info:
+            del info['raw_text']
         json.dump(full_info, f, ensure_ascii=False, indent=4)

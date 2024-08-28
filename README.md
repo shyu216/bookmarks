@@ -6,8 +6,8 @@ This part lacks of testing, please try your best to debug and fit your case by y
 1. Go to 'bookmark_helper' folder.
 2. Export your bookmark from browser as html and put it here.
 3. Install the required packages by running `pip install -r requirements.txt`.
-4. Run the firefox.py following by tfidf.py.
-5. Move bookmark.json to 'public' folder.
+4. Run the collect_data.py following by analyse_data.py.
+5. Move sites.json to 'public' folder.
 
 ## Recommended IDE Setup
 

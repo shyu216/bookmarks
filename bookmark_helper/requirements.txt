@@ -5,3 +5,4 @@ jieba
 matplotlib
 numpy
 tqdm
+nltk

@@ -30,3 +30,4 @@ coverage
 *.tsbuildinfo
 
 bookmark_helper/bookmarks.html
+bookmark_helper\error.txt
