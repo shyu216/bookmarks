@@ -9,14 +9,6 @@ This part lacks of testing, please try your best to debug and fit your case by y
 4. Run the collect_data.py following by analyse_data.py.
 5. Move sites.json to 'public' folder.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
 ## Project Setup
 
 ```sh
@@ -34,3 +26,7 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Deploy to GitHub Pages
+
+Run either deploy.bat or deploy.sh to deploy the project to GitHub Pages.
