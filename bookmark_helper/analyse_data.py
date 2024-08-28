@@ -16,7 +16,7 @@ stop_words_eng = set(stopwords.words('english'))
 
 if __name__ == '__main__':
     content = []
-    with open('sites.json', 'r', encoding='utf-8') as f:
+    with open('bookmarks.json', 'r', encoding='utf-8') as f:
         full_info = json.load(f)
         for info in full_info:
             content.append(info['raw_text'])

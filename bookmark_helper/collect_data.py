@@ -183,7 +183,7 @@ def process_bookmark(b):
                     else:
                         full_info.append({'href': b['href'], 'add_date': b['add_date'], 'title': info['title'], 'description': info['description'], 'icon': info['icon'], 'raw_text': info['raw_text']})
                         # tqdm.write(f"Processed bookmark: {b['href']}")  # 打印处理的书签信息
-                        with open('sites.json', 'w', encoding='utf-8') as f:
+                        with open('bookmarks.json', 'w', encoding='utf-8') as f:
                             json.dump(full_info, f, indent=4, ensure_ascii=False)
             else:
                 with open('error.txt', 'a', encoding='utf-8') as f:
@@ -193,8 +193,8 @@ if __name__ == '__main__':
     bookmark_path = os.path.expanduser('./bookmarks.html')
     bookmark = parse_firefox_bookmark(bookmark_path)
     full_info = []
-    if os.path.exists('sites.json'):
-        with open('sites.json', 'r', encoding='utf-8') as f:
+    if os.path.exists('bookmarks.json'):
+        with open('bookmarks.json', 'r', encoding='utf-8') as f:
             full_info = json.load(f)
 
     with ThreadPoolExecutor(max_workers=16) as executor:
