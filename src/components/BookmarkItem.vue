@@ -1,26 +1,26 @@
 <template>
-    <container v-if="show" class="list-item">
-        <container class="title">
+    <div v-if="show" class="list-item">
+        <div class="title">
             <img :src="bookmark.icon" alt="icon" class="icon" />
-            <container class="content">
+            <div class="content">
                 <h3>{{ bookmark.title }}</h3>
                 <p>{{ bookmark.description }}</p>
-            </container>
-        </container>
-        <container class="date-link">
+            </div>
+        </div>
+        <!-- <div class="date-link">
             <p>Added on: {{ new Date(parseInt(bookmark.add_date) * 1000).toLocaleDateString() }}
             </p>
             <a :href="bookmark.href" target="_blank" class="badge link">
                 <font-awesome-icon :icon="['fas', 'link']" />
                 Visit Link
             </a>
-        </container>
-        <container class="tags">
+        </div>
+        <div class="tags">
             <span v-for="tag in bookmark.tags" :key="tag" class="badge tag" @click="updateQuery(tag)">
                 {{ tag }}
             </span>
-        </container>
-    </container>
+        </div> -->
+    </div>
 </template>
 
 <script>
