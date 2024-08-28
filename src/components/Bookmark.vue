@@ -1,14 +1,16 @@
 <template>
   <v-row class="my-2 mx-4">
-    <v-col
-      v-for="(bookmark, index) in bookmarks"
-      :key="bookmark.href"
-      cols="6"
-      md="4"
-      lg="3"
-    >
-      <BookmarkItem v-if="shouldShowBookmark(bookmark)" :bookmark="bookmark" />
-    </v-col>
+    <template v-for="(bookmark, index) in bookmarks">
+      <v-col
+        :key="bookmark.href"
+        v-if="shouldShowBookmark(bookmark)"
+        cols="6"
+        md="4"
+        lg="3"
+      >
+        <BookmarkItem :bookmark="bookmark" />
+      </v-col>
+    </template>
   </v-row>
 </template>
 
