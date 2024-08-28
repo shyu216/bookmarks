@@ -1,37 +1,40 @@
 <template>
-    <div v-if="show" class="list-item">
-        <div class="title">
-            <img :src="bookmark.icon" alt="icon" class="icon" />
-            <div class="content">
-                <h3>{{ bookmark.title }}</h3>
-                <p>{{ bookmark.description }}</p>
-            </div>
-        </div>
-        <!-- <div class="date-link">
-            <p>Added on: {{ new Date(parseInt(bookmark.add_date) * 1000).toLocaleDateString() }}
-            </p>
-            <a :href="bookmark.href" target="_blank" class="badge link">
-                <font-awesome-icon :icon="['fas', 'link']" />
-                Visit Link
-            </a>
-        </div>
-        <div class="tags">
-            <span v-for="tag in bookmark.tags" :key="tag" class="badge tag" @click="updateQuery(tag)">
-                {{ tag }}
-            </span>
-        </div> -->
-    </div>
+  <v-tooltip :text="bookmark.href">
+    <template v-slot:activator="{ props }">
+      <v-card
+        class="mx-auto"
+        elevation="12"
+        :subtitle="
+          new Date(parseInt(bookmark.add_date) * 1000).toLocaleDateString()
+        "
+        :title="bookmark.title"
+        :href="bookmark.href"
+        target="_blank"
+        append-icon="fas fa-link"
+        hover
+        link
+        v-bind="props"
+      >
+        <template v-slot:prepend>
+          <v-avatar>
+            <v-img
+              alt=""
+              :src="
+                bookmark.icon
+                  ? bookmark.icon
+                  : '@/../public/icon/android-chrome-192x192.png'
+              "
+            ></v-img>
+          </v-avatar>
+        </template>
+        <v-card-text>{{ bookmark.description }}</v-card-text>
+      </v-card>
+    </template>
+  </v-tooltip>
 </template>
 
 <script>
 export default {
-    props: ['bookmark', 'show'],
-    methods: {
-        updateQuery(searchQuery) {
-            // 使用事件总线传递搜索查询
-            this.$store.commit('updateSearchQuery', searchQuery);
-            console.log('Committing query:', searchQuery);
-        }
-    }
-}
+  props: ["bookmark"],
+};
 </script>

@@ -1,24 +1,25 @@
 <template>
-  <container class="overflow-y-auto">
-    <bookmark-list-item
+  <v-row class="my-2 mx-4">
+    <v-col
       v-for="(bookmark, index) in bookmarks"
       :key="bookmark.href"
-      :bookmark="bookmark"
-      :show="shouldShowBookmark(bookmark)"
-    />
-  </container>
+      cols="6"
+      md="4"
+      lg="3"
+    >
+      <BookmarkItem v-if="shouldShowBookmark(bookmark)" :bookmark="bookmark" />
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-import BookmarkListItem from "./BookmarkItem.vue";
-import SearchInput from "./SearchInput.vue"; // 导入SearchInput组件
+import BookmarkItem from "./BookmarkItem.vue";
 
 import { mapState } from "vuex";
 
 export default {
   components: {
-    BookmarkListItem,
-    SearchInput, // 注册SearchInput组件
+    BookmarkItem,
   },
   data() {
     return {

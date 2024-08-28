@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="6" class="mx-auto">
+    <v-col cols="12" sm="8" md="6" lg="4" class="mx-auto">
       <v-text-field
         v-model="searchQuery"
         bg-color="purple-lighten-5"
