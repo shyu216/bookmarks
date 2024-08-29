@@ -30,3 +30,8 @@ npm run build
 ### Deploy to GitHub Pages
 
 Run either deploy.bat or deploy.sh to deploy the project to GitHub Pages.
+
+For mac, you may need to run `chmod +x deploy.sh` to make it executable.
+
+The branch of gh-pages could be `master` or `main`, please check the script before running.
+
