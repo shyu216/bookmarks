@@ -19,7 +19,6 @@
       <!-- <v-spacer></v-spacer> -->
 
       <v-btn
-        class="mr-6"
         prepend-icon="fas fa-map-signs"
         slim
         @click.stop="drawer = !drawer"

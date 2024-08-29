@@ -8,7 +8,7 @@
         prepend-inner-icon="fas fa-search"
         label="Keyword"
         hide-details="auto"
-        @input="updateQuery"
+        @blur="updateQuery"
         variant="solo"
       >
       </v-text-field>

@@ -100,6 +100,8 @@ export default {
           "transform",
           (d) => `translate(${d.x},${d.y}) rotate(${d.rotate})`
         ); // 确保单词的位置和旋转也被应用
+
+      console.log("Word cloud generated:", words.length);
     },
   },
 };

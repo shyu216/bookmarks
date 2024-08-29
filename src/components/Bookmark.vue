@@ -1,23 +1,33 @@
 <template>
-  <v-lazy
-    :min-height="200"
-    :options="{ threshold: 0.5 }"
-    transition="fade-transition"
-  >
-    <v-row class="my-2 mx-4">
-         <template v-for="(bookmark, index) in bookmarks">
-            <v-col
-              :key="bookmark.href"
-              v-if="shouldShowBookmark(bookmark)"
-              cols="6"
-              md="4"
-              lg="3"
-            >
-              <BookmarkItem :bookmark="bookmark" />
-            </v-col>
-          </template>
-    </v-row>
-  </v-lazy>
+  <v-row class="my-2 mx-4">
+    <template v-for="(bookmark, index) in bookmarks">
+      <v-col
+        :key="bookmark.href"
+        v-if="shouldShowBookmark(bookmark)"
+        cols="6"
+        md="4"
+        lg="3"
+      >
+        <v-lazy :options="{ threshold: 0.5 }" transition="fade-transition">
+          <BookmarkItem :bookmark="bookmark" />
+        </v-lazy>
+      </v-col>
+    </template>
+    <template v-if="bookmarks.length === 0">
+      <v-container fill-height>
+        <v-row align="center" justify="center">
+          <v-col cols="auto">
+            <v-progress-circular
+              :size="70"
+              :width="7"
+              color="purple"
+              indeterminate
+            ></v-progress-circular>
+          </v-col>
+        </v-row>
+      </v-container>
+    </template>
+  </v-row>
 </template>
 
 <script>
@@ -48,6 +58,7 @@ export default {
     },
   },
   mounted() {
+    const start_time = performance.now();
     fetch("./sites.json", {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
@@ -56,6 +67,14 @@ export default {
       .then((response) => response.json())
       .then((data) => {
         this.bookmarks = data;
+        const end_time = performance.now();
+        console.log(
+          "Bookmarks loaded:",
+          this.bookmarks.length,
+          ", in",
+          (end_time - start_time) / 1000,
+          "s"
+        );
       })
       .catch((error) => console.error("Error loading bookmarks:", error));
   },
@@ -68,9 +87,7 @@ export default {
       // 使用 includes 方法检查书签的标题中是否包含关键词
       return (
         bookmark.title.toLowerCase().includes(this.keyword.toLowerCase()) ||
-        bookmark.tags?.some((tag) =>
-          tag.toLowerCase().includes(this.keyword.toLowerCase())
-        ) ||
+        this.keyword.toLowerCase() in bookmark.tags ||
         bookmark.description?.toLowerCase().includes(this.keyword.toLowerCase())
       );
     },
