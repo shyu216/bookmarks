@@ -24,7 +24,9 @@
         slim
         @click.stop="drawer = !drawer"
       >
-        {{ drawer ? "Close" : "Open" }} Word Cloud
+        <span class="hidden-sm-and-down">
+          {{ drawer ? "Close" : "Open" }} Word Cloud
+        </span>
       </v-btn>
 
       <v-btn
@@ -32,7 +34,9 @@
         slim
         @click="changeTheme"
       >
-        Switch {{ theme === "light" ? "Light" : "Dark" }} Mode
+        <span class="hidden-sm-and-down">
+          Switch {{ theme === "light" ? "Light" : "Dark" }} Mode
+        </span>
       </v-btn>
     </v-app-bar>
 
