@@ -1,14 +1,15 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="8" md="6" lg="4" class="mx-auto">
+    <v-col cols="12" sm="8" md="6" lg="4" class="mx-auto px-4">
       <v-text-field
         v-model="searchQuery"
-        bg-color="purple-lighten-5"
+        bg-color="purple-lighten-3"
         class="rounded elevation-3"
         prepend-inner-icon="fas fa-search"
         label="Keyword"
         hide-details="auto"
         @input="updateQuery"
+        variant="solo"
       >
       </v-text-field>
     </v-col>
