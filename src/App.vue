@@ -1,6 +1,6 @@
 <template>
   <v-app :theme="theme">
-    <v-app-bar color="purple-darken-3" class="px-3">
+    <v-app-bar color="purple-accent-4" class="px-3">
       <template v-slot:prepend>
         <v-avatar size="32px" class="ml-3">
           <v-img

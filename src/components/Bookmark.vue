@@ -20,7 +20,7 @@
             <v-progress-circular
               :size="70"
               :width="7"
-              color="purple"
+              color="purple-accent-4"
               indeterminate
             ></v-progress-circular>
           </v-col>

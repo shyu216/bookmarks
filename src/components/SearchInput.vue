@@ -3,7 +3,6 @@
     <v-col cols="12" sm="8" md="6" lg="4" class="mx-auto px-4">
       <v-text-field
         v-model="searchQuery"
-        bg-color="purple-lighten-3"
         class="rounded elevation-3"
         prepend-inner-icon="fas fa-search"
         label="Keyword"
