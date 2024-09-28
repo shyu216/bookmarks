@@ -1,5 +1,7 @@
 Use this project to build a bookmark page from your browser's bookmark export file. The page was built with Vue.js.
 
+See another interesting bookmark project [pintree](https://github.com/Pintree-io/pintree)!
+
 ## Preparation
 This part lacks of testing, please try your best to debug and fit your case by yourself.
 
